@@ -1,0 +1,47 @@
+version: '3'
+services:
+  django_ticket_project:
+    container_name: django_ticket_project
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ./Ticket_Project:/var/www/html
+    env_file:
+      - .env
+    working_dir: /var/www/html
+    command: /entrypoint.sh
+    ports:
+      - '8900:8000'
+    networks:
+      - ticket-network
+    depends_on:
+      - ticket_db
+
+  ticket_db:
+    platform: linux/x86_64
+    image: mysql:8.1
+    container_name: ticket_db
+    restart: unless-stopped
+    tty: true
+    command: --default-authentication-plugin=caching_sha2_password
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - "3310:3306"
+    volumes:
+      - ./db-data/local:/var/lib/mysql
+    networks:
+      - ticket-network
+    healthcheck:
+      test: "exit 0"
+
+networks:
+  ticket-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.16.250.0/24
