@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'ticket_app',
     'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -93,6 +94,8 @@ DATABASES = {
         'PORT': envData.DB_PORT,  # Should be 3306 based on your environment variable
     },
 }
+
+AUTH_USER_MODEL = 'ticket_app.Manager'
 
 
 # Password validation

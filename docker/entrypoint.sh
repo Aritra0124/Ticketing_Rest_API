@@ -11,7 +11,6 @@ echo "Connected to database."
 
 # Apply database migrations
 python manage.py makemigrations
-
 python manage.py migrate
 
 # Collect static files (if applicable)
