@@ -88,5 +88,3 @@ class APITestCase(TestCase):
     #     response = self.client.post('/api/ticket/', data, format='json')
     #     self.assertEqual(response.status_code, status.HTTP_201_CREATED)
     #     # Assert other ticket creation-related behaviors as needed
-    #
-    # # Write similar test methods for other API endpoints
