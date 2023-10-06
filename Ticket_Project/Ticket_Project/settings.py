@@ -65,7 +65,7 @@ ROOT_URLCONF = 'Ticket_Project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['ticket_app/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -93,6 +93,12 @@ DATABASES = {
         'HOST': envData.DB_HOST,  # Use the same name as your Docker Compose service
         'PORT': envData.DB_PORT,  # Should be 3306 based on your environment variable
     },
+    'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+    },
+    'TEST': {
+        'NAME': 'test_db',  # Test database name
+    },
 }
 
 AUTH_USER_MODEL = 'ticket_app.Manager'
@@ -118,8 +124,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        # 'rest_framework.authentication.BasicAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ]
 }
