@@ -733,7 +733,7 @@ python manage.py test ticket_app.tests --settings=Ticket_Project.test_settings
       - Endpoint ``POST /api/traveller/``
       - Body ``{"ticket": 2 }``
       - Response ```{"message": "Logout successful" }```
-  _ To get ticket details of a user
+  - To get ticket details of a user
       - Endpoint ``GET /api/traveller/<id>/``
       - Response ```[
     {
